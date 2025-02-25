@@ -12,6 +12,18 @@ body {
   background-color: black;
 }
 
+#lbl_live {
+  color: white;
+  align-self: flex-end;
+  margin-right: 40px;
+}
+
+#score {
+  color: white;
+  align-self: flex-start;
+  margin-left: 40px;
+}
+
 #canvas {
   width: 380px;
   height: 380px;
@@ -27,4 +39,9 @@ body {
   border-radius: 15px;
   box-shadow: inset 0 0 20px black;
   border: 1px solid rgba(128, 128, 128, 0.374);
+  user-select: none;
+  -moz-user-select: none;
+  -webkit-user-select: none;
+  -ms-user-select: none;
+  -webkit-tap-highlight-color: transparent;
 }/*# sourceMappingURL=style.css.map */

@@ -5,10 +5,8 @@ export class Obstacle {
         this.pos_y = pos_y;
         this.width = width;
         this.height = height;
-        this.velocity_x = -3; // Negative Geschwindigkeit für Bewegung nach links
+        this.velocity_x = Math.floor(Math.random() * (-1 + 4)) - 4;
         this.gravity = 0;
-        this.jumpStrength = -10;
-        this.target = 0;
     }
 
     update(obstacles) {
@@ -16,7 +14,7 @@ export class Obstacle {
 
         if (this.pos_x <= 0) {
             this.pos_x = 0;
-            obstacles.splice(0, 1)
+            obstacles.splice(0, 1);
             this.velocity_x = 0;
         }
     }

@@ -6,8 +6,8 @@ export class Player {
         this.width = width;
         this.height = height;
         this.velocity_y = 0;
-        this.gravity = 0.5;
-        this.jumpStrength = -10;
+        this.gravity = 0.2;
+        this.jumpStrength = -5;
         this.ground = pos_y;
     }
 
