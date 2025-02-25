@@ -1,9 +1,5 @@
-import { test } from './modules/functions.js';
 import { Player } from './classes/Player.js';
 
-
-
-test();
 
 const canvas = document.getElementById('canvas');
 const btn_jump = document.getElementById('btn_jump');
