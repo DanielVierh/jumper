@@ -9,6 +9,15 @@ export class Player {
         this.gravity = 0.2;
         this.jumpStrength = -5;
         this.ground = pos_y;
+
+        // load images
+        this.images = [];
+        for (let i = 1; i <= 5; i++) {
+            const img = new Image();
+            img.src = `src/assets/player/mario${i}.png`;
+            this.images.push(img);
+        }
+        this.currentImageIndex = 0;
     }
 
     jump() {
@@ -25,11 +34,20 @@ export class Player {
             this.pos_y = this.ground;
             this.velocity_y = 0;
         }
+
+        // Bildanimation aktualisieren
+        if (this.frameCount === undefined) {
+            this.frameCount = 0;
+        }
+        this.frameCount++;
+        if (this.frameCount % 2 === 0) {
+            this.currentImageIndex = (this.currentImageIndex + 1) % this.images.length;
+        }
     }
 
     draw(ctx) {
-        ctx.fillStyle = 'blue';
-        ctx.fillRect(this.pos_x, this.pos_y, this.width, this.height);
+        const img = this.images[this.currentImageIndex];
+        ctx.drawImage(img, this.pos_x, this.pos_y, this.width, this.height);
     }
 
 }

@@ -7,7 +7,7 @@ const lbl_live = document.getElementById("lbl_live");
 const lbl_score = document.getElementById("score");
 const ctx = canvas.getContext("2d");
 
-let player = new Player(10, canvas.height - 30, 20, 30);
+let player = new Player(30, canvas.height - 25, 20, 25);
 let obstacles = [];
 let live = 5;
 let score = 0;
