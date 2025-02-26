@@ -10,6 +10,11 @@ body {
     justify-content: center;
     align-items: center;
     background-color: black;
+
+    &.hit {
+        background-color: rgb(108, 14, 14); 
+    }
+
 }
 
 #lbl_live {
@@ -29,10 +34,6 @@ body {
     height: 380px;
     background-color: rgb(94, 188, 250);
     margin: 10px auto;
-
-    &.hit {
-        background-color: rgb(108, 14, 14); 
-    }
 }
 
 .button {

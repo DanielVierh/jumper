@@ -5,10 +5,11 @@ const canvas = document.getElementById("canvas");
 const btn_jump = document.getElementById("btn_jump");
 const lbl_live = document.getElementById("lbl_live");
 const lbl_score = document.getElementById("score");
+const bdy = document.getElementById("bdy");
 const ctx = canvas.getContext("2d");
 
 const background = new Image();
-background.src = 'src/assets/bg/mountains.jpg';
+background.src = 'src/assets/bg/background3-720.png';
 
 background.onload = function() {
   ctx.drawImage(background, 0, 0, canvas.width, canvas.height);
@@ -30,11 +31,11 @@ document.addEventListener("keydown", (event) => {
 });
 
 function createObstacle() {
-  const obstacle_height = Math.floor(Math.random() * (30 - 10 + 1)) + 10;
+  const obstacle_height = Math.floor(Math.random() * (20 - 10 + 1)) + 10;
   let obstacle = new Obstacle(
     canvas.width,
-    canvas.height - obstacle_height,
-    20,
+    canvas.height - obstacle_height - Math.floor(Math.random() * (30 - 5 + 1)) + 10,
+    25,
     obstacle_height,
     'src/assets/objects/Kreissaege.png'
   );
@@ -66,12 +67,16 @@ function gameLoop() {
 
   lbl_score.innerHTML = `${score}`;
 
-  canvas.classList.remove('hit');
+  bdy.classList.remove('hit');
 
   if (live === 0) {
     return;
   }
   ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+  // Hintergrund zeichnen
+  ctx.drawImage(background, 0, 0, canvas.width, canvas.height);
+
   player.update();
   player.draw(ctx);
 
@@ -80,7 +85,7 @@ function gameLoop() {
     obstacle.draw(ctx);
 
     if (checkCollision(player, obstacle)) {
-      canvas.classList.add('hit');
+      bdy.classList.add('hit');
       obstacles.splice(0, 1);
       live--;
     }else {

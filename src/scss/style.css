@@ -11,6 +11,9 @@ body {
   align-items: center;
   background-color: black;
 }
+body.hit {
+  background-color: rgb(108, 14, 14);
+}
 
 #lbl_live {
   color: white;
@@ -29,9 +32,6 @@ body {
   height: 380px;
   background-color: rgb(94, 188, 250);
   margin: 10px auto;
-}
-#canvas.hit {
-  background-color: rgb(108, 14, 14);
 }
 
 .button {
