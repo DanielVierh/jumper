@@ -10,6 +10,7 @@ body {
   justify-content: center;
   align-items: center;
   background-color: black;
+  font-family: sans-serif;
 }
 body.hit {
   background-color: rgb(108, 14, 14);
@@ -19,12 +20,14 @@ body.hit {
   color: white;
   align-self: flex-end;
   margin-right: 40px;
+  z-index: 11;
 }
 
 #score {
   color: white;
   align-self: flex-start;
   margin-left: 40px;
+  z-index: 11;
 }
 
 #canvas {
@@ -52,8 +55,37 @@ body.hit {
   align-items: center;
   text-align: center;
   font-size: 2rem;
-  font-family: sans-serif;
   font-weight: bold;
   color: rgb(51, 51, 51);
   text-transform: uppercase;
+}
+
+.game-over-screen {
+  display: none;
+}
+.game-over-screen.active {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(94, 6, 6, 0.42);
+  -webkit-backdrop-filter: blur(5px);
+          backdrop-filter: blur(5px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-shadow: 0 0 15px black;
+  color: white;
+  font-size: 2rem;
+  z-index: 10;
+}
+.game-over-screen.active .button-new-game {
+  background-color: green;
+  padding: 20px;
+  margin-top: 50px;
+  border-radius: 15px;
+  box-shadow: 0 0 15px black;
+  font-size: 2rem;
 }/*# sourceMappingURL=style.css.map */

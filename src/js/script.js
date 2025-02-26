@@ -7,6 +7,8 @@ const lbl_live = document.getElementById("lbl_live");
 const lbl_score = document.getElementById("score");
 const bdy = document.getElementById("bdy");
 const ctx = canvas.getContext("2d");
+const btn_play_again = document.getElementById("btn_play_again");
+const game_over_screen = document.getElementById("game_over_screen");
 
 const background = new Image();
 background.src = 'src/assets/bg/background3-720.png';
@@ -44,6 +46,7 @@ function createObstacle() {
 
 setInterval(() => {
   if (live === 0) {
+    game_over_screen.classList.add('active')
     return;
   }
   let newObstacle = createObstacle();
@@ -97,3 +100,8 @@ function gameLoop() {
 }
 
 gameLoop();
+
+
+btn_play_again.addEventListener('click', ()=> {
+  window.location.reload();
+})
