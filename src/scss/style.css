@@ -28,8 +28,8 @@ body.hit {
 }
 
 #canvas {
-  width: 380px;
-  height: 380px;
+  width: 350px;
+  height: 350px;
   background-color: rgb(94, 188, 250);
   margin: 10px auto;
 }
