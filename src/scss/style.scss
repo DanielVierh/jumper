@@ -29,6 +29,10 @@ body {
     height: 380px;
     background-color: rgb(84, 141, 48);
     margin: 10px auto;
+
+    &.hit {
+        background-color: rgb(108, 14, 14); 
+    }
 }
 
 .button {

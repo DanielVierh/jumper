@@ -30,6 +30,9 @@ body {
   background-color: rgb(84, 141, 48);
   margin: 10px auto;
 }
+#canvas.hit {
+  background-color: rgb(108, 14, 14);
+}
 
 .button {
   background-color: rgb(144, 28, 28);
