@@ -39,8 +39,7 @@ setInterval(() => {
   }
   let newObstacle = createObstacle();
   obstacles.push(newObstacle);
-  console.log(obstacles);
-}, 1500);
+}, 2500);
 
 function checkCollision(player, obstacle) {
   return (
