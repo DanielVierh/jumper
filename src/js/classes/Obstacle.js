@@ -1,12 +1,14 @@
 export class Obstacle {
 
-    constructor(pos_x, pos_y, width, height) {
+    constructor(pos_x, pos_y, width, height, imageSrc) {
         this.pos_x = pos_x;
         this.pos_y = pos_y;
         this.width = width;
         this.height = height;
         this.velocity_x = Math.floor(Math.random() * (-1 + 4)) - 4;
         this.gravity = 0;
+        this.image = new Image();
+        this.image.src = imageSrc;
     }
 
     update(obstacles) {
@@ -20,8 +22,7 @@ export class Obstacle {
     }
 
     draw(ctx) {
-        ctx.fillStyle = 'red';
-        ctx.fillRect(this.pos_x, this.pos_y, this.width, this.height);
+        ctx.drawImage(this.image, this.pos_x, this.pos_y, this.width, this.height);
     }
 
 }

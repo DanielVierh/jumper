@@ -7,7 +7,14 @@ const lbl_live = document.getElementById("lbl_live");
 const lbl_score = document.getElementById("score");
 const ctx = canvas.getContext("2d");
 
-let player = new Player(30, canvas.height - 25, 20, 25);
+const background = new Image();
+background.src = 'src/assets/bg/mountains.jpg';
+
+background.onload = function() {
+  ctx.drawImage(background, 0, 0, canvas.width, canvas.height);
+};
+
+let player = new Player(30, canvas.height - 25, 25, 25);
 let obstacles = [];
 let live = 5;
 let score = 0;
@@ -28,7 +35,8 @@ function createObstacle() {
     canvas.width,
     canvas.height - obstacle_height,
     20,
-    obstacle_height
+    obstacle_height,
+    'src/assets/objects/Kreissaege.png'
   );
   return obstacle;
 }
