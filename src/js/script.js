@@ -33,12 +33,12 @@ document.addEventListener("keydown", (event) => {
 });
 
 function createObstacle() {
-  const obstacle_height = Math.floor(Math.random() * (20 - 10 + 1)) + 10;
+  const obstacle_size = Math.floor(Math.random() * (20 - 10 + 1)) + 10;
   let obstacle = new Obstacle(
     canvas.width,
-    canvas.height - obstacle_height - Math.floor(Math.random() * (30 - 5 + 1)) + 10,
-    25,
-    obstacle_height,
+    canvas.height - obstacle_size - Math.floor(Math.random() * (30 - 5 + 1)) + 10,
+    obstacle_size + 18,
+    obstacle_size,
     'src/assets/objects/Kreissaege.png'
   );
   return obstacle;
