@@ -13,6 +13,7 @@ export class Obstacle {
 
     update(obstacles) {
         this.pos_x += this.velocity_x;
+        this.angle = (this.angle || 0) + .3;
 
         if (this.pos_x <= 0) {
             this.pos_x = 0;
@@ -22,7 +23,11 @@ export class Obstacle {
     }
 
     draw(ctx) {
-        ctx.drawImage(this.image, this.pos_x, this.pos_y, this.width, this.height);
+        ctx.save();
+        ctx.translate(this.pos_x + this.width / 2, this.pos_y + this.height / 2);
+        ctx.rotate(this.angle);
+        ctx.drawImage(this.image, -this.width / 2, -this.height / 2, this.width, this.height);
+        ctx.restore();
     }
 
 }
