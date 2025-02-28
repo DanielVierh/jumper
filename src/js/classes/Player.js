@@ -9,6 +9,7 @@ export class Player {
         this.gravity = 0.2;
         this.jumpStrength = -5;
         this.ground = pos_y;
+        this.is_jumping = false;
 
         // load images
         this.images = [];
@@ -23,6 +24,7 @@ export class Player {
     jump() {
         if (this.pos_y === this.ground) {
             this.velocity_y = this.jumpStrength;
+            this.is_jumping = true;
         }
     }
 
@@ -39,9 +41,17 @@ export class Player {
         if (this.frameCount === undefined) {
             this.frameCount = 0;
         }
-        this.frameCount++;
-        if (this.frameCount % 2 === 0) {
-            this.currentImageIndex = (this.currentImageIndex + 1) % this.images.length;
+
+        if(this.is_jumping  === true) {
+            this.frameCount++;
+            if (this.frameCount % 2 === 0) {
+                this.currentImageIndex = (this.currentImageIndex + 1) % this.images.length;
+            }
+        }
+
+        if(this.pos_y === this.ground) {
+            this.is_jumping = false;
+            this.currentImageIndex = 0;
         }
     }
 
