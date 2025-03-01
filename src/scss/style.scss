@@ -20,14 +20,26 @@ body {
 
 #lbl_live {
     color: white;
-    align-self: flex-end;
+    position: fixed;
+    top: 8px;
+    right: 8px;
     margin-right: 40px;
+    z-index: 11;
+}
+
+#lbl_coins {
+    position: fixed;
+    top: 8px;
+    left: 50%;
+    color: white;
     z-index: 11;
 }
 
 #score {
     color: white;
-    align-self: flex-start;
+    position: fixed;
+    top: 8px;
+    left: 8px;
     margin-left: 40px;
     z-index: 11;
 }
@@ -36,7 +48,7 @@ body {
     width: 350px;
     height: 350px;
     background-color: rgb(94, 188, 250);
-    margin: 10px auto;
+    margin: 30px auto;
 }
 
 .button {

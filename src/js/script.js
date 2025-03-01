@@ -1,15 +1,16 @@
 import { Player } from "./classes/Player.js";
 import { Obstacle } from "./classes/Obstacle.js";
+import { Coin } from "./classes/Coin.js";
 
 const canvas = document.getElementById("canvas");
 const btn_jump = document.getElementById("btn_jump");
 const lbl_live = document.getElementById("lbl_live");
 const lbl_score = document.getElementById("score");
 const bdy = document.getElementById("bdy");
+const lbl_coins = document.getElementById("lbl_coins");
 const ctx = canvas.getContext("2d");
 const btn_play_again = document.getElementById("btn_play_again");
 const game_over_screen = document.getElementById("game_over_screen");
-
 const background = new Image();
 background.src = 'src/assets/bg/background3-720.png';
 
@@ -21,6 +22,8 @@ let player = new Player(30, canvas.height - 25, 25, 25);
 let obstacles = [];
 let live = 5;
 let score = 0;
+let coins = [];
+let coin_wallet = 0;
 
 btn_jump.addEventListener("click", () => {
   player.jump();
@@ -44,6 +47,17 @@ function createObstacle() {
   return obstacle;
 }
 
+function createCoins() {
+  let coin = new Coin(
+    canvas.width,
+    canvas.height - 20 - 70,
+    20,
+    10, 
+    'src/assets/objects/coin.png'
+  );
+  return coin;
+}
+
 setInterval(() => {
   if (live === 0) {
     game_over_screen.classList.add('active')
@@ -52,6 +66,14 @@ setInterval(() => {
   let newObstacle = createObstacle();
   obstacles.push(newObstacle);
 }, 2500);
+
+setInterval(() => {
+  if (live === 0) {
+    return;
+  }
+  let newCoin = createCoins();
+  coins.push(newCoin);
+}, 1000);
 
 function checkCollision(player, obstacle) {
   return (
@@ -68,7 +90,9 @@ function gameLoop() {
     <path d="M10.464 3.314a.5.5 0 0 0-.945.049L7.921 8.956 6.464 5.314a.5.5 0 0 0-.88-.091L3.732 8H.5a.5.5 0 0 0 0 1H4a.5.5 0 0 0 .416-.223l1.473-2.209 1.647 4.118a.5.5 0 0 0 .945-.049l1.598-5.593 1.457 3.642A.5.5 0 0 0 12 9h3.5a.5.5 0 0 0 0-1h-3.162z"/>
   </svg> ${live}`;
 
-  lbl_score.innerHTML = `${score}`;
+  lbl_score.innerHTML = `Score: ${score}`;
+  lbl_coins.innerHTML = `Coins: ${coin_wallet}`
+
 
   bdy.classList.remove('hit');
 
@@ -93,6 +117,21 @@ function gameLoop() {
       live--;
     }else {
         score++;
+    }
+  });
+
+  coins.forEach((coin, index) => {
+    coin.update(coins, score);
+    coin.draw(ctx);
+
+    if (checkCollision(player, coin)) {
+      coins.splice(index, 1);
+      score += 2;
+      coin_wallet++;
+
+      if(coin_wallet % 20 === 0) {
+        live++;
+      }
     }
   });
 
