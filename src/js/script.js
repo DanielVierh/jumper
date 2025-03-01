@@ -37,8 +37,8 @@ function createObstacle() {
   let obstacle = new Obstacle(
     canvas.width,
     canvas.height - obstacle_size - Math.floor(Math.random() * (30 - 5 + 1)) + 10,
-    obstacle_size,
-    obstacle_size, // Make height equal to width to make it round
+    obstacle_size + 18,
+    obstacle_size + 15, 
     'src/assets/objects/Kreissaege.png'
   );
   return obstacle;
