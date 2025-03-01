@@ -15,6 +15,9 @@ body {
 body.hit {
   background-color: rgb(108, 14, 14);
 }
+body.extra-live {
+  background-color: greenyellow;
+}
 
 #lbl_live {
   color: white;

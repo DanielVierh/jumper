@@ -95,6 +95,7 @@ function gameLoop() {
 
 
   bdy.classList.remove('hit');
+  bdy.classList.remove('extra-live')
 
   if (live === 0) {
     return;
@@ -131,6 +132,7 @@ function gameLoop() {
 
       if(coin_wallet % 20 === 0) {
         live++;
+        bdy.classList.add('extra-live')
       }
     }
   });

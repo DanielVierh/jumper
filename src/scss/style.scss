@@ -16,6 +16,9 @@ body {
         background-color: rgb(108, 14, 14); 
     }
 
+    &.extra-live {
+        background-color: greenyellow;
+    }
 }
 
 #lbl_live {
