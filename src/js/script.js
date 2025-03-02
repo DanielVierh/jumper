@@ -39,7 +39,7 @@ function createObstacle() {
   const obstacle_size = Math.floor(Math.random() * (20 - 10 + 1)) + 10;
   let obstacle = new Obstacle(
     canvas.width,
-    canvas.height - obstacle_size - Math.floor(Math.random() * (30 - 5 + 1)) + 10,
+    canvas.height - obstacle_size - Math.floor(Math.random() * (30 - 5 + 1)) + 5,
     obstacle_size + 18,
     obstacle_size + 15, 
     'src/assets/objects/Kreissaege.png'
@@ -50,7 +50,7 @@ function createObstacle() {
 function createCoins() {
   let coin = new Coin(
     canvas.width,
-    canvas.height - 20 - 70,
+    canvas.height - 20 - (Math.floor(Math.random() * (70 - 40 + 1)) + 40),
     20,
     10, 
     'src/assets/objects/coin.png'
@@ -65,7 +65,7 @@ setInterval(() => {
   }
   let newObstacle = createObstacle();
   obstacles.push(newObstacle);
-}, 2500);
+}, 3500);
 
 setInterval(() => {
   if (live === 0) {
