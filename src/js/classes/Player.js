@@ -10,6 +10,7 @@ export class Player {
         this.jumpStrength = -5;
         this.ground = pos_y;
         this.is_jumping = false;
+        this.is_double_jump = false;
 
         // load images
         this.images = [];
@@ -25,6 +26,11 @@ export class Player {
         if (this.pos_y === this.ground) {
             this.velocity_y = this.jumpStrength;
             this.is_jumping = true;
+        }else if(this.pos_y !== this.ground) {
+            if(this.is_double_jump === false) {
+                this.velocity_y = this.jumpStrength / 2;
+                this.is_double_jump = true;
+            }
         }
     }
 
@@ -52,6 +58,7 @@ export class Player {
         if(this.pos_y === this.ground) {
             this.is_jumping = false;
             this.currentImageIndex = 0;
+            this.is_double_jump = false;
         }
     }
 
