@@ -27,6 +27,7 @@ export class Player {
             this.velocity_y = this.jumpStrength;
             this.is_jumping = true;
         }else if(this.pos_y !== this.ground) {
+            //* Double Jump
             if(this.is_double_jump === false) {
                 this.velocity_y = this.jumpStrength / 2;
                 this.is_double_jump = true;
@@ -60,6 +61,7 @@ export class Player {
             this.currentImageIndex = 0;
             this.is_double_jump = false;
         }
+
     }
 
     draw(ctx) {
