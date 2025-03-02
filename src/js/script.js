@@ -3,7 +3,11 @@ import { Obstacle } from "./classes/Obstacle.js";
 import { Coin } from "./classes/Coin.js";
 import { Fireball } from "./classes/Fireball.js";
 
-import { saveHighscore, getHighscore, displayHighscore } from "./modules/highscore.js";
+import {
+  saveHighscore,
+  getHighscore,
+  displayHighscore,
+} from "./modules/highscore.js";
 
 const canvas = document.getElementById("canvas");
 const btn_jump = document.getElementById("btn_jump");
@@ -16,9 +20,9 @@ const btn_play_again = document.getElementById("btn_play_again");
 const game_over_screen = document.getElementById("game_over_screen");
 const lbl_highscore = document.getElementById("lbl_highscore");
 const background = new Image();
-background.src = 'src/assets/bg/background3-720.png';
+background.src = "src/assets/bg/background3-720.png";
 
-background.onload = function() {
+background.onload = function () {
   ctx.drawImage(background, 0, 0, canvas.width, canvas.height);
 };
 
@@ -28,6 +32,7 @@ let live = 5;
 let score = 0;
 let coins = [];
 let coin_wallet = 0;
+let fireballs = [];
 
 btn_jump.addEventListener("click", () => {
   player.jump();
@@ -43,10 +48,13 @@ function createObstacle() {
   const obstacle_size = Math.floor(Math.random() * (20 - 10 + 1)) + 10;
   let obstacle = new Obstacle(
     canvas.width,
-    canvas.height - obstacle_size - Math.floor(Math.random() * (30 - 5 + 1)) + 5,
+    canvas.height -
+      obstacle_size -
+      Math.floor(Math.random() * (30 - 5 + 1)) +
+      5,
     obstacle_size + 18,
-    obstacle_size + 15, 
-    'src/assets/objects/Kreissaege.png'
+    obstacle_size + 15,
+    "src/assets/objects/Kreissaege.png"
   );
   return obstacle;
 }
@@ -56,15 +64,26 @@ function createCoins() {
     canvas.width,
     canvas.height - 20 - (Math.floor(Math.random() * (70 - 40 + 1)) + 40),
     20,
-    10, 
-    'src/assets/objects/coin.png'
+    10,
+    "src/assets/objects/coin.png"
   );
   return coin;
 }
 
+function createFireballs() {
+  let fireball = new Fireball(
+    canvas.width - 10,
+    0,
+    10,
+    10,
+    "src/assets/objects/piew.png"
+  );
+  return fireball;
+}
+
 setInterval(() => {
   if (live === 0) {
-    game_over_screen.classList.add('active');
+    game_over_screen.classList.add("active");
     saveHighscore(score);
     displayHighscore(lbl_highscore);
     return;
@@ -80,6 +99,17 @@ setInterval(() => {
   let newCoin = createCoins();
   coins.push(newCoin);
 }, 1000);
+
+setInterval(() => {
+  if (live === 0) {
+    game_over_screen.classList.add("active");
+    saveHighscore(score);
+    displayHighscore(lbl_highscore);
+    return;
+  }
+  let newFireball = createFireballs();
+  fireballs.push(newFireball);
+}, 15000);
 
 function checkCollision(player, obstacle) {
   return (
@@ -97,11 +127,10 @@ function gameLoop() {
   </svg> ${live}`;
 
   lbl_score.innerHTML = `Score: ${score}`;
-  lbl_coins.innerHTML = `Coins: ${coin_wallet}`
+  lbl_coins.innerHTML = `Coins: ${coin_wallet}`;
 
-
-  bdy.classList.remove('hit');
-  bdy.classList.remove('extra-live')
+  bdy.classList.remove("hit");
+  bdy.classList.remove("extra-live");
 
   if (live === 0) {
     return;
@@ -119,11 +148,11 @@ function gameLoop() {
     obstacle.draw(ctx);
 
     if (checkCollision(player, obstacle)) {
-      bdy.classList.add('hit');
+      bdy.classList.add("hit");
       obstacles.splice(0, 1);
       live--;
-    }else {
-        score++;
+    } else {
+      score++;
     }
   });
 
@@ -136,10 +165,21 @@ function gameLoop() {
       score += 2;
       coin_wallet++;
 
-      if(coin_wallet % 20 === 0) {
+      if (coin_wallet % 20 === 0) {
         live++;
-        bdy.classList.add('extra-live')
+        bdy.classList.add("extra-live");
       }
+    }
+  });
+
+  fireballs.forEach((fireball) => {
+    fireball.update(fireballs, canvas);
+    fireball.draw(ctx);
+
+    if (checkCollision(player, fireball)) {
+      bdy.classList.add("hit");
+      fireballs.splice(fireballs.indexOf(fireball), 1);
+      live--;
     }
   });
 
@@ -148,7 +188,6 @@ function gameLoop() {
 
 gameLoop();
 
-
-btn_play_again.addEventListener('click', ()=> {
+btn_play_again.addEventListener("click", () => {
   window.location.reload();
-})
+});
