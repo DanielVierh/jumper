@@ -11,6 +11,7 @@ export class Player {
         this.ground = pos_y;
         this.is_jumping = false;
         this.is_double_jump = false;
+        this.rotation = 0; // Neue Eigenschaft für die Rotation
 
         // load images
         this.images = [];
@@ -26,11 +27,12 @@ export class Player {
         if (this.pos_y === this.ground) {
             this.velocity_y = this.jumpStrength;
             this.is_jumping = true;
-        }else if(this.pos_y !== this.ground) {
+        } else if (this.pos_y !== this.ground) {
             //* Double Jump
-            if(this.is_double_jump === false) {
+            if (this.is_double_jump === false) {
                 this.velocity_y = this.jumpStrength / 2;
                 this.is_double_jump = true;
+                this.rotation = 0; // Reset rotation
             }
         }
     }
@@ -49,24 +51,32 @@ export class Player {
             this.frameCount = 0;
         }
 
-        if(this.is_jumping  === true) {
+        if (this.is_jumping === true) {
             this.frameCount++;
             if (this.frameCount % 2 === 0) {
                 this.currentImageIndex = (this.currentImageIndex + 1) % this.images.length;
             }
         }
 
-        if(this.pos_y === this.ground) {
+        if (this.pos_y === this.ground) {
             this.is_jumping = false;
             this.currentImageIndex = 0;
             this.is_double_jump = false;
+            this.rotation = 0; // Reset rotation when on the ground
         }
 
+        if (this.is_double_jump) {
+            this.rotation += 10; // Increase rotation angle
+        }
     }
 
     draw(ctx) {
         const img = this.images[this.currentImageIndex];
-        ctx.drawImage(img, this.pos_x, this.pos_y, this.width, this.height);
+        ctx.save();
+        ctx.translate(this.pos_x + this.width / 2, this.pos_y + this.height / 2);
+        ctx.rotate(this.rotation * Math.PI / 180);
+        ctx.drawImage(img, -this.width / 2, -this.height / 2, this.width, this.height);
+        ctx.restore();
     }
 
 }
