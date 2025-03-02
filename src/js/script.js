@@ -100,6 +100,7 @@ setInterval(() => {
   coins.push(newCoin);
 }, 1000);
 
+//* Fireballs
 setInterval(() => {
   if (live === 0) {
     game_over_screen.classList.add("active");
@@ -107,8 +108,10 @@ setInterval(() => {
     displayHighscore(lbl_highscore);
     return;
   }
-  let newFireball = createFireballs();
-  fireballs.push(newFireball);
+  if(score > 7000) {
+    let newFireball = createFireballs();
+    fireballs.push(newFireball);
+  }
 }, 15000);
 
 function checkCollision(player, obstacle) {
