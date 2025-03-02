@@ -28,6 +28,11 @@ body {
     right: 8px;
     margin-right: 40px;
     z-index: 11;
+    user-select: none;
+    -moz-user-select: none;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+    -webkit-tap-highlight-color: transparent;
 }
 
 #lbl_coins {
@@ -36,6 +41,11 @@ body {
     left: 50%;
     color: white;
     z-index: 11;
+    user-select: none;
+    -moz-user-select: none;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+    -webkit-tap-highlight-color: transparent;
 }
 
 #score {
@@ -45,6 +55,11 @@ body {
     left: 8px;
     margin-left: 40px;
     z-index: 11;
+    user-select: none;
+    -moz-user-select: none;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+    -webkit-tap-highlight-color: transparent;
 }
 
 #canvas {
