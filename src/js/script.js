@@ -1,6 +1,9 @@
 import { Player } from "./classes/Player.js";
 import { Obstacle } from "./classes/Obstacle.js";
 import { Coin } from "./classes/Coin.js";
+import { Fireball } from "./classes/Fireball.js";
+
+import { saveHighscore, getHighscore, displayHighscore } from "./modules/highscore.js";
 
 const canvas = document.getElementById("canvas");
 const btn_jump = document.getElementById("btn_jump");
@@ -11,6 +14,7 @@ const lbl_coins = document.getElementById("lbl_coins");
 const ctx = canvas.getContext("2d");
 const btn_play_again = document.getElementById("btn_play_again");
 const game_over_screen = document.getElementById("game_over_screen");
+const lbl_highscore = document.getElementById("lbl_highscore");
 const background = new Image();
 background.src = 'src/assets/bg/background3-720.png';
 
@@ -60,7 +64,9 @@ function createCoins() {
 
 setInterval(() => {
   if (live === 0) {
-    game_over_screen.classList.add('active')
+    game_over_screen.classList.add('active');
+    saveHighscore(score);
+    displayHighscore(lbl_highscore);
     return;
   }
   let newObstacle = createObstacle();

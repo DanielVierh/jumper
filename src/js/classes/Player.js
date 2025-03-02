@@ -11,7 +11,7 @@ export class Player {
         this.ground = pos_y;
         this.is_jumping = false;
         this.is_double_jump = false;
-        this.rotation = 0; // Neue Eigenschaft für die Rotation
+        this.rotation = 0;
 
         // load images
         this.images = [];
@@ -32,7 +32,7 @@ export class Player {
             if (this.is_double_jump === false) {
                 this.velocity_y = this.jumpStrength / 2;
                 this.is_double_jump = true;
-                this.rotation = 0; // Reset rotation
+                this.rotation = 0;
             }
         }
     }
@@ -62,11 +62,11 @@ export class Player {
             this.is_jumping = false;
             this.currentImageIndex = 0;
             this.is_double_jump = false;
-            this.rotation = 0; // Reset rotation when on the ground
+            this.rotation = 0; 
         }
 
         if (this.is_double_jump) {
-            this.rotation += 10; // Increase rotation angle
+            this.rotation += 10; 
         }
     }
 

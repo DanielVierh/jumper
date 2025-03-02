@@ -103,4 +103,12 @@ body.extra-live {
   border-radius: 15px;
   box-shadow: 0 0 15px black;
   font-size: 2rem;
+}
+.game-over-screen.active .highscore {
+  background-color: green;
+  padding: 10px;
+  border-radius: 5px;
+  margin: 30px 0;
+  font-size: 1rem;
+  letter-spacing: 2px;
 }/*# sourceMappingURL=style.css.map */
