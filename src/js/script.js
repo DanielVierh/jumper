@@ -33,6 +33,8 @@ let score = 0;
 let coins = [];
 let coin_wallet = 0;
 let fireballs = [];
+let obstacle_interval = 8_000;
+const obstacle_min_Interval = 3_500;
 
 btn_jump.addEventListener("click", () => {
   player.jump();
@@ -43,6 +45,29 @@ document.addEventListener("keydown", (event) => {
     player.jump();
   }
 });
+
+//* Create Obstacles
+function createObstacles() {
+  if (live === 0) {
+    game_over_screen.classList.add("active");
+    saveHighscore(score);
+    displayHighscore(lbl_highscore);
+    return;
+  }
+  if (score >= 20) {
+    let newObstacle = createObstacle();
+    obstacles.push(newObstacle);
+    if (obstacle_interval > obstacle_min_Interval) {
+      obstacle_interval -= 200;
+      console.log('obstacle_interval', obstacle_interval);
+      
+    }
+  }
+  setTimeout(createObstacles, obstacle_interval);
+}
+
+//* Create Obstacles
+setTimeout(createObstacles, obstacle_interval);
 
 function createObstacle() {
   const obstacle_size = Math.floor(Math.random() * (20 - 10 + 1)) + 10;
@@ -59,6 +84,15 @@ function createObstacle() {
   return obstacle;
 }
 
+//* Create Coins
+setInterval(() => {
+  if (live === 0) {
+    return;
+  }
+  let newCoin = createCoins();
+  coins.push(newCoin);
+}, 1000);
+
 function createCoins() {
   let coin = new Coin(
     canvas.width,
@@ -70,40 +104,7 @@ function createCoins() {
   return coin;
 }
 
-function createFireballs() {
-  let fireball = new Fireball(
-    canvas.width - 10,
-    0,
-    10,
-    10,
-    "src/assets/objects/piew.png"
-  );
-  return fireball;
-}
-
-//* Obstacles
-setInterval(() => {
-  if (live === 0) {
-    game_over_screen.classList.add("active");
-    saveHighscore(score);
-    displayHighscore(lbl_highscore);
-    return;
-  }
-  if(score >= 20) {
-    let newObstacle = createObstacle();
-    obstacles.push(newObstacle);
-  }
-}, 3500);
-
-setInterval(() => {
-  if (live === 0) {
-    return;
-  }
-  let newCoin = createCoins();
-  coins.push(newCoin);
-}, 1000);
-
-//* Fireballs
+//* Create Fireballs
 setInterval(() => {
   if (live === 0) {
     game_over_screen.classList.add("active");
@@ -115,7 +116,18 @@ setInterval(() => {
     let newFireball = createFireballs();
     fireballs.push(newFireball);
   }
-}, 15000);
+}, 20000);
+
+function createFireballs() {
+  let fireball = new Fireball(
+    canvas.width - 10,
+    0,
+    10,
+    10,
+    "src/assets/objects/piew.png"
+  );
+  return fireball;
+}
 
 function checkCollision(player, obstacle) {
   return (
