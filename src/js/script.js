@@ -81,6 +81,7 @@ function createFireballs() {
   return fireball;
 }
 
+//* Obstacles
 setInterval(() => {
   if (live === 0) {
     game_over_screen.classList.add("active");
@@ -88,8 +89,10 @@ setInterval(() => {
     displayHighscore(lbl_highscore);
     return;
   }
-  let newObstacle = createObstacle();
-  obstacles.push(newObstacle);
+  if(score >= 20) {
+    let newObstacle = createObstacle();
+    obstacles.push(newObstacle);
+  }
 }, 3500);
 
 setInterval(() => {
