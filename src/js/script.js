@@ -2,6 +2,7 @@ import { Player } from "./classes/Player.js";
 import { Obstacle } from "./classes/Obstacle.js";
 import { Coin } from "./classes/Coin.js";
 import { Fireball } from "./classes/Fireball.js";
+import { Enemy } from "./classes/Enemy.js";
 
 import {
   saveHighscore,
@@ -33,8 +34,11 @@ let score = 0;
 let coins = [];
 let coin_wallet = 0;
 let fireballs = [];
+let enemies = [];
 let obstacle_interval = 8_000;
 const obstacle_min_Interval = 3_500;
+let enemy_interval = 5_000;
+const enemy_min_Interval = 3_500;
 
 btn_jump.addEventListener("click", () => {
   player.jump();
@@ -129,13 +133,66 @@ function createFireballs() {
   return fireball;
 }
 
-function checkCollision(player, obstacle) {
-  return (
-    player.pos_x < obstacle.pos_x + obstacle.width &&
-    player.pos_x + player.width > obstacle.pos_x &&
-    player.pos_y < obstacle.pos_y + obstacle.height &&
-    player.pos_y + player.height > obstacle.pos_y
+//* Create Enemies
+function createEnemies() {
+  if (live === 0) {
+    game_over_screen.classList.add("active");
+    saveHighscore(score);
+    displayHighscore(lbl_highscore);
+    return;
+  }
+  if (score >= 20) {
+    let newEnemy = createEnemy();
+    enemies.push(newEnemy);
+    if (enemy_interval > enemy_min_Interval) {
+      enemy_interval -= 200;
+    }
+  }
+  setTimeout(createEnemies, enemy_interval);
+}
+
+//* Create Enemy
+setTimeout(createEnemies, enemy_interval);
+
+function createEnemy() {
+  const enemy_size = 20;
+  let enemy = new Enemy(
+    canvas.width,
+    canvas.height - enemy_size,
+    enemy_size,
+    enemy_size
   );
+  return enemy;
+}
+
+function checkCollision(player, colliding_object) {
+  return (
+    player.pos_x < colliding_object.pos_x + colliding_object.width &&
+    player.pos_x + player.width > colliding_object.pos_x &&
+    player.pos_y < colliding_object.pos_y + colliding_object.height &&
+    player.pos_y + player.height > colliding_object.pos_y
+  );
+}
+
+function checkEnemyCollision(player, colliding_enemy) {
+  const playerBottom = player.pos_y + player.height;
+  const enemyTop = colliding_enemy.pos_y;
+  const playerRight = player.pos_x + player.width;
+  const enemyRight = colliding_enemy.pos_x + colliding_enemy.width;
+  const playerLeft = player.pos_x;
+  const enemyLeft = colliding_enemy.pos_x;
+
+  // Check if player is landing on top of the enemy
+  if (playerBottom <= enemyTop + 5 && playerBottom >= enemyTop - 5 && playerRight > enemyLeft && playerLeft < enemyRight) {
+    return 'landed';
+  }
+
+  return (
+    player.pos_x < colliding_enemy.pos_x + colliding_enemy.width &&
+    player.pos_x + player.width > colliding_enemy.pos_x &&
+    player.pos_y + player.height > colliding_enemy.pos_y &&
+    player.pos_y < colliding_enemy.pos_y + colliding_enemy.height
+  ) ? 'collided' : false;
 }
 
 function gameLoop() {
@@ -161,6 +218,7 @@ function gameLoop() {
   player.update();
   player.draw(ctx);
 
+  //* Loop obstacles
   obstacles.forEach((obstacle) => {
     obstacle.update(obstacles, score);
     obstacle.draw(ctx);
@@ -174,6 +232,7 @@ function gameLoop() {
     }
   });
 
+  //* Loop Coins
   coins.forEach((coin, index) => {
     coin.update(coins, score);
     coin.draw(ctx);
@@ -190,6 +249,7 @@ function gameLoop() {
     }
   });
 
+    //* Loop Fireballs
   fireballs.forEach((fireball) => {
     fireball.update(fireballs, canvas);
     fireball.draw(ctx);
@@ -200,6 +260,22 @@ function gameLoop() {
       live--;
     }
   });
+
+//* Loop enemies
+enemies.forEach((enemy, index) => {
+  enemy.update(enemies, canvas);
+  enemy.draw(ctx);
+
+  const collisionStatus = checkEnemyCollision(player, enemy);
+  if (collisionStatus === 'collided') {
+    bdy.classList.add("hit");
+    enemies.splice(index, 1);
+    live--;
+  } else if (collisionStatus === 'landed') {
+    // Remove enemy if player lands on it
+    enemies.splice(index, 1);
+  }
+});
 
   requestAnimationFrame(gameLoop);
 }
