@@ -15,8 +15,8 @@ export class Obstacle {
         this.pos_x += this.velocity_x;
         this.angle = (this.angle || 0) + .3;
 
-        if (this.pos_x <= 0) {
-            this.pos_x = 0;
+        if (this.pos_x <= -100) {
+            this.pos_x = -100;
             obstacles.splice(0, 1);
             this.velocity_x = 0;
         }
