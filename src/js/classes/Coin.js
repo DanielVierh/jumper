@@ -13,8 +13,8 @@ export class Coin {
     update(coins) {
         this.pos_x += this.velocity_x;
 
-        if (this.pos_x <= 0) {
-            this.pos_x = 0;
+        if (this.pos_x <= -50) {
+            this.pos_x = -50;
             coins.splice(0, 1);
             this.velocity_x = 0;
         }

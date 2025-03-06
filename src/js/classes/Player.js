@@ -12,7 +12,7 @@ export class Player {
         this.is_jumping = false;
         this.is_double_jump = false;
         this.rotation = 0;
-        this.live = 7;
+        this.live = 5;
 
         // load images
         this.images = [];
