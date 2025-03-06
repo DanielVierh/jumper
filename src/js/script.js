@@ -281,6 +281,8 @@ enemies.forEach((enemy, index) => {
     setTimeout(() => {
        enemies.splice(index, 1);
     }, 500);
+  }else {
+    score++;
   }
 });
 
