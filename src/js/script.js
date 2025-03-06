@@ -287,7 +287,9 @@ enemies.forEach((enemy, index) => {
   }
 });
 
-  requestAnimationFrame(gameLoop);
+  setTimeout(() => {
+    gameLoop()
+  }, 18);
 }
 
 gameLoop();
