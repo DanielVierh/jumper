@@ -53,13 +53,5 @@ export class Enemy {
       ctx.drawImage(img, this.pos_x, this.pos_y, this.width, this.height);
     }
   }
-
-  hit() {
-    const hitImage = new Image();
-    hitImage.src = 'src/assets/enemies/enemy3.png';
-    hitImage.onload = () => {
-      this.images = [hitImage];
-    };
-  }
   
 }

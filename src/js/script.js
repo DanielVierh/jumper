@@ -280,7 +280,7 @@ enemies.forEach((enemy, index) => {
     // Remove enemy if player lands on it
     console.log('enemy', enemy);
     enemy.is_alive = false;
-    //enemy.hit();
+    score += 10;
     
     setTimeout(() => {
        enemies.splice(index, 1);
