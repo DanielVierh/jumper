@@ -61,9 +61,7 @@ function createObstacles() {
     let newObstacle = createObstacle();
     obstacles.push(newObstacle);
     if (obstacle_interval > obstacle_min_Interval) {
-      obstacle_interval -= 200;
-      console.log('obstacle_interval', obstacle_interval);
-      
+      obstacle_interval -= 200;      
     }
   }
   setTimeout(createObstacles, obstacle_interval);
@@ -277,7 +275,6 @@ enemies.forEach((enemy, index) => {
     player.live--;
   } else if (collisionStatus === 'landed') {
     // Remove enemy if player lands on it
-    console.log('enemy', enemy);
     enemy.is_alive = false;
     score += 10;
     
