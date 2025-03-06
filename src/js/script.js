@@ -35,8 +35,8 @@ let coins = [];
 let coin_wallet = 0;
 let fireballs = [];
 let enemies = [];
-let obstacle_interval = 8_000;
-const obstacle_min_Interval = 3_500;
+let obstacle_interval = 10_000;
+const obstacle_min_Interval = 5_500;
 let enemy_interval = 5_000;
 const enemy_min_Interval = 3_500;
 
@@ -175,6 +175,11 @@ function checkCollision(player, colliding_object) {
 }
 
 function checkEnemyCollision(player, colliding_enemy) {
+
+  if(colliding_enemy.is_alive === false) {
+    return false;
+  }
+
   const playerBottom = player.pos_y + player.height;
   const enemyTop = colliding_enemy.pos_y;
   const playerRight = player.pos_x + player.width;
@@ -273,7 +278,13 @@ enemies.forEach((enemy, index) => {
     live--;
   } else if (collisionStatus === 'landed') {
     // Remove enemy if player lands on it
-    enemies.splice(index, 1);
+    console.log('enemy', enemy);
+    enemy.is_alive = false;
+    //enemy.hit();
+    
+    setTimeout(() => {
+       enemies.splice(index, 1);
+    }, 500);
   }
 });
 
