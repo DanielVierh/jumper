@@ -98,6 +98,11 @@ body {
   text-transform: uppercase;
 }
 
+.start-button {
+    border: 1px solid white;
+    animation: glow 8s ease-in-out infinite;
+}
+
 .game-over-screen {
   display: none;
 
@@ -187,5 +192,20 @@ body {
 
     100% {
         top: 5%;
+    }
+}
+
+@keyframes glow {
+    0% {
+        box-shadow: 0 0 3px white;
+    }
+
+    50% {
+        box-shadow: 0 0 40px white;
+        color: white;
+    }
+
+    100% {
+        box-shadow: 0 0 5px white;
     }
 }

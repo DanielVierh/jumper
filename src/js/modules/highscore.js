@@ -19,6 +19,6 @@ export function getHighscore() {
 export function displayHighscore(lbl) {
     const highscore = getHighscore();
     if (highscore) {
-        lbl.innerHTML = `Highscore: ${highscore.score} - Datum: ${highscore.date} - Uhrzeit: ${highscore.time}`
+        lbl.innerHTML = `Score: ${highscore.score} - Am: ${highscore.date} - ${highscore.time}`
     }
 }
