@@ -258,9 +258,12 @@ function gameLoop() {
     obstacle.draw(ctx);
 
     if (checkCollision(player, obstacle)) {
-      bdy.classList.add("hit");
       obstacles.splice(0, 1);
-      player.live--;
+      if(player.is_invulnerable === false) {
+        bdy.classList.add("hit");
+        player.live--;
+      }
+      player.invulnerable();
     } else {
       score++;
     }
@@ -289,9 +292,12 @@ function gameLoop() {
     fireball.draw(ctx);
 
     if (checkCollision(player, fireball)) {
-      bdy.classList.add("hit");
       fireballs.splice(fireballs.indexOf(fireball), 1);
-      player.live--;
+      if(player.is_invulnerable === false) {
+        bdy.classList.add("hit");
+        player.live--;
+      }
+      player.invulnerable();
     }
   });
 
@@ -302,9 +308,12 @@ enemies.forEach((enemy, index) => {
 
   const collisionStatus = checkEnemyCollision(player, enemy);
   if (collisionStatus === 'collided') {
-    bdy.classList.add("hit");
     enemies.splice(index, 1);
-    player.live--;
+    if(player.is_invulnerable === false) {
+      bdy.classList.add("hit");
+      player.live--;
+    }
+    player.invulnerable();
   } else if (collisionStatus === 'landed') {
     // Remove enemy if player lands on it
     enemy.is_alive = false;

@@ -13,6 +13,7 @@ export class Player {
         this.is_double_jump = false;
         this.rotation = 0;
         this.live = 5;
+        this.is_invulnerable = false;
 
         // load images
         this.images = [];
@@ -69,6 +70,11 @@ export class Player {
         if (this.is_double_jump) {
             this.rotation += 10; 
         }
+
+        if(this.is_invulnerable) {
+            console.log('is invulnerable');
+            
+        }
     }
 
     draw(ctx) {
@@ -78,6 +84,14 @@ export class Player {
         ctx.rotate(this.rotation * Math.PI / 180);
         ctx.drawImage(img, -this.width / 2, -this.height / 2, this.width, this.height);
         ctx.restore();
+    }
+
+    invulnerable() {
+        this.is_invulnerable = true;
+        
+        setTimeout(() => {
+            this.is_invulnerable = false;
+        }, 1000);
     }
 
 }
