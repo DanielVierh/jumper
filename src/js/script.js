@@ -34,7 +34,7 @@ background.onload = function () {
 //* Variables
 let player = new Player(30, canvas.height - 25, 25, 25);
 let obstacles = [];
-let score = 0;
+let score = 5000;
 let coins = [];
 let coin_wallet = 0;
 let fireballs = [];
@@ -64,6 +64,15 @@ document.addEventListener("keydown", (event) => {
     player.jump();
   }
 });
+
+function got_hit(collision_obj) {
+  if(player.is_invulnerable === false && collision_obj.is_harmfull == true) {
+    bdy.classList.add("hit");
+    player.live--;
+    collision_obj.is_harmfull = false;
+    player.invulnerable();
+  }
+}
 
 //* Create Obstacles
 function createObstacles() {
@@ -258,12 +267,7 @@ function gameLoop() {
     obstacle.draw(ctx);
 
     if (checkCollision(player, obstacle)) {
-      obstacles.splice(0, 1);
-      if(player.is_invulnerable === false) {
-        bdy.classList.add("hit");
-        player.live--;
-      }
-      player.invulnerable();
+      got_hit(obstacle)
     } else {
       score++;
     }
@@ -319,12 +323,7 @@ enemies.forEach((enemy, index) => {
 
   const collisionStatus = checkEnemyCollision(player, enemy);
   if (collisionStatus === 'collided') {
-    enemies.splice(index, 1);
-    if(player.is_invulnerable === false) {
-      bdy.classList.add("hit");
-      player.live--;
-    }
-    player.invulnerable();
+    got_hit(enemy);
   } else if (collisionStatus === 'landed') {
     // Remove enemy if player lands on it
     enemy.is_alive = false;

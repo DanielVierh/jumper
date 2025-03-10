@@ -10,6 +10,7 @@ export class Enemy {
     this.imagesLoaded = 0;
     this.currentImageIndex = 0;
     this.is_alive = true;
+    this.is_harmfull = true;
 
     for (let i = 1; i <= 3; i++) {
       const img = new Image();
