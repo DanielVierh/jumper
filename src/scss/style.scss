@@ -157,6 +157,16 @@ body {
     z-index: 12;
     color: white;
 
+    h1 {
+        font-size: 3rem;
+        letter-spacing: 3px;
+        text-shadow: 0 0 20px lightblue;
+        position: fixed;
+        top: 5%;
+        text-transform: uppercase;
+        animation: h1_animation 8s ease-in-out infinite;
+    }
+
     .wrapper {
       display: flex;
       flex-direction: column;
@@ -164,4 +174,18 @@ body {
       justify-content: center;
     }
   }
+}
+
+@keyframes h1_animation {
+    0% {
+        top: 5%;
+    }
+
+    50% {
+        top: 20%;
+    }
+
+    100% {
+        top: 5%;
+    }
 }

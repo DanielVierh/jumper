@@ -155,9 +155,30 @@ body.extra-live {
   z-index: 12;
   color: white;
 }
+.modal-menu.active h1 {
+  font-size: 3rem;
+  letter-spacing: 3px;
+  text-shadow: 0 0 20px lightblue;
+  position: fixed;
+  top: 5%;
+  text-transform: uppercase;
+  animation: h1_animation 8s ease-in-out infinite;
+}
 .modal-menu.active .wrapper {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
+}
+
+@keyframes h1_animation {
+  0% {
+    top: 5%;
+  }
+  50% {
+    top: 20%;
+  }
+  100% {
+    top: 5%;
+  }
 }/*# sourceMappingURL=style.css.map */
