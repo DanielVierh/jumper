@@ -77,7 +77,14 @@ export class Player {
         ctx.save();
         ctx.translate(this.pos_x + this.width / 2, this.pos_y + this.height / 2);
         ctx.rotate(this.rotation * Math.PI / 180);
-        ctx.drawImage(img, -this.width / 2, -this.height / 2, this.width, this.height);
+        if (this.is_invulnerable) {
+            // Blinken: nur jedes zweite Frame zeichnen
+            if (Math.floor(Date.now() / 100) % 2 === 0) {
+                ctx.drawImage(img, -this.width / 2, -this.height / 2, this.width, this.height);
+            }
+        } else {
+            ctx.drawImage(img, -this.width / 2, -this.height / 2, this.width, this.height);
+        }
         ctx.restore();
     }
 
