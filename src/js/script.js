@@ -299,6 +299,17 @@ function gameLoop() {
       }
       player.invulnerable();
     }
+
+      //* Collision between enemy and fireball
+    enemies.forEach((enemy, index) => {
+      if (checkCollision(fireball, enemy)) {
+        enemy.is_alive = false;
+        
+        setTimeout(() => {
+          enemies.splice(index, 1);
+        }, 500);
+      }
+    });
   });
 
 //* Loop enemies

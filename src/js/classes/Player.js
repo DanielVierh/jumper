@@ -70,11 +70,6 @@ export class Player {
         if (this.is_double_jump) {
             this.rotation += 10; 
         }
-
-        if(this.is_invulnerable) {
-            console.log('is invulnerable');
-            
-        }
     }
 
     draw(ctx) {
