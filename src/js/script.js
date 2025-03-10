@@ -24,6 +24,7 @@ const lbl_highscore = document.getElementById("lbl_highscore");
 const lbl_last_score = document.getElementById("lbl_last_score");
 const mdl_menu = document.getElementById("mdl_menu");
 const btn_start_game = document.getElementById("btn_start_game");
+const lbl_new_highscore = document.getElementById("lbl_new_highscore");
 const background = new Image();
 background.src = "src/assets/bg/background3-720.png";
 
@@ -333,12 +334,15 @@ function got_hit(collision_obj) {
 
 function game_over() {
   game_over_screen.classList.add("active");
-  if(new_score_is_set === false) {
-    saveHighscore(score);
-    displayHighscore(lbl_highscore);
-    new_score_is_set = true;
-    setTimeout(() => {
-      window.location.reload();
-    }, 10000);
+  if (new_score_is_set === false) {
+      const isNewHighscore = saveHighscore(score);
+      displayHighscore(lbl_highscore);
+      if (isNewHighscore) {
+        lbl_new_highscore.classList.add('active');
+      }
+      new_score_is_set = true;
+      setTimeout(() => {
+          window.location.reload();
+      }, 15000);
   }
 }

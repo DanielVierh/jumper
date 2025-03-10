@@ -226,3 +226,49 @@ body {
     box-shadow: 0 0 5px white;
   }
 }
+
+@keyframes scale {
+  0% {
+    transform: scale(1) rotate(0deg);
+  }
+
+  50% {
+    transform: scale(1.5) rotate(30deg);
+  }
+
+  100% {
+    transform: scale(1) rotate(0deg);
+  }
+}
+
+#lbl_new_highscore {
+  display: none;
+
+  &.active {
+    display: flex;
+    color: black;
+    background-color: lightblue;
+    text-align: center;
+    padding: 5px 0;
+    position: relative;
+    margin: 20px 0;
+    border-radius: 15px;
+    animation: scale 1s ease-in-out;
+  
+    &::after {
+      content: '🥳';
+      position: absolute;
+      top: -3rem;
+      right: 10px;
+      width: 4rem;
+      height: 4rem;
+      font-size: 4rem;
+      padding: 7px;
+      border-radius: 50%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+  }
+
+}

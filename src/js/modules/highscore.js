@@ -10,11 +10,15 @@ export function saveHighscore(score) {
     highscores.push(newHighscore);
     highscores.sort((a, b) => b.score - a.score);
 
+    let isNewHighscore = false;
     if (highscores.length > 10) {
         highscores.pop();
+    } else {
+        isNewHighscore = true;
     }
 
     localStorage.setItem('highscores', JSON.stringify(highscores));
+    return isNewHighscore;
 }
 
 export function getHighscore() {
