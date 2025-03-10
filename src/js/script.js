@@ -10,6 +10,7 @@ import {
   displayHighscore,
 } from "./modules/highscore.js";
 
+//* DOM Objects
 const canvas = document.getElementById("canvas");
 const btn_jump = document.getElementById("btn_jump");
 const lbl_live = document.getElementById("lbl_live");
@@ -20,6 +21,9 @@ const ctx = canvas.getContext("2d");
 const btn_play_again = document.getElementById("btn_play_again");
 const game_over_screen = document.getElementById("game_over_screen");
 const lbl_highscore = document.getElementById("lbl_highscore");
+const lbl_last_score = document.getElementById("lbl_last_score");
+const mdl_menu = document.getElementById("mdl_menu");
+const btn_start_game = document.getElementById("btn_start_game");
 const background = new Image();
 background.src = "src/assets/bg/background3-720.png";
 
@@ -27,6 +31,7 @@ background.onload = function () {
   ctx.drawImage(background, 0, 0, canvas.width, canvas.height);
 };
 
+//* Variables
 let player = new Player(30, canvas.height - 25, 25, 25);
 let obstacles = [];
 let score = 0;
@@ -38,6 +43,15 @@ let obstacle_interval = 10_000;
 const obstacle_min_Interval = 5_500;
 let enemy_interval = 5_000;
 const enemy_min_Interval = 3_500;
+
+window.onload = ()=> {
+  displayHighscore(lbl_last_score);
+}
+
+btn_start_game.addEventListener('click', ()=> {
+  mdl_menu.classList.remove('active');
+})
+
 
 btn_jump.addEventListener("click", () => {
   player.jump();
