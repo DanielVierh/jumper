@@ -43,6 +43,7 @@ let obstacle_interval = 10_000;
 const obstacle_min_Interval = 5_500;
 let enemy_interval = 5_000;
 const enemy_min_Interval = 3_500;
+let new_score_is_set = false;
 
 window.onload = ()=> {
   displayHighscore(lbl_last_score);
@@ -68,8 +69,11 @@ document.addEventListener("keydown", (event) => {
 function createObstacles() {
   if (player.live === 0) {
     game_over_screen.classList.add("active");
-    saveHighscore(score);
-    displayHighscore(lbl_highscore);
+    if(new_score_is_set === false) {
+      saveHighscore(score);
+      displayHighscore(lbl_highscore);
+      new_score_is_set = true;
+    }
     return;
   }
   if (score >= 20) {
@@ -82,7 +86,6 @@ function createObstacles() {
   setTimeout(createObstacles, obstacle_interval);
 }
 
-//* Create Obstacles
 setTimeout(createObstacles, obstacle_interval);
 
 function createObstacle() {
@@ -124,8 +127,11 @@ function createCoins() {
 setInterval(() => {
   if (player.live === 0) {
     game_over_screen.classList.add("active");
-    saveHighscore(score);
-    displayHighscore(lbl_highscore);
+    if(new_score_is_set === false) {
+      saveHighscore(score);
+      displayHighscore(lbl_highscore);
+      new_score_is_set = true;
+    }
     return;
   }
   if(score > 7000) {
@@ -149,8 +155,11 @@ function createFireballs() {
 function createEnemies() {
   if (player.live === 0) {
     game_over_screen.classList.add("active");
-    saveHighscore(score);
-    displayHighscore(lbl_highscore);
+    if(new_score_is_set === false) {
+      saveHighscore(score);
+      displayHighscore(lbl_highscore);
+      new_score_is_set = true;
+    }
     return;
   }
   if (score >= 20) {
@@ -163,7 +172,6 @@ function createEnemies() {
   setTimeout(createEnemies, enemy_interval);
 }
 
-//* Create Enemy
 setTimeout(createEnemies, enemy_interval);
 
 function createEnemy() {
@@ -300,7 +308,7 @@ enemies.forEach((enemy, index) => {
     score++;
   }
 
-  //* Collision with obstacle
+  //* Collision between enemy and obstacle
   obstacles.forEach((obstacle) => {
     if (checkCollision(enemy, obstacle)) {
       enemy.is_alive = false;
@@ -315,7 +323,7 @@ enemies.forEach((enemy, index) => {
 
   setTimeout(() => {
     gameLoop()
-  }, 18);
+  }, 15);
 }
 
 gameLoop();
