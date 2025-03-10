@@ -23,9 +23,11 @@ body.extra-live {
   color: white;
   position: fixed;
   top: 8px;
-  right: 8px;
+  right: 0;
   margin-right: 40px;
   z-index: 11;
+  font-size: 18px;
+  font-weight: bold;
   user-select: none;
   -moz-user-select: none;
   -webkit-user-select: none;
@@ -37,8 +39,11 @@ body.extra-live {
   position: fixed;
   top: 8px;
   left: 50%;
+  transform: translateX(-50%);
   color: white;
   z-index: 11;
+  font-size: 18px;
+  font-weight: bold;
   user-select: none;
   -moz-user-select: none;
   -webkit-user-select: none;
@@ -50,9 +55,11 @@ body.extra-live {
   color: white;
   position: fixed;
   top: 8px;
-  left: 8px;
+  left: 0;
   margin-left: 40px;
   z-index: 11;
+  font-size: 18px;
+  font-weight: bold;
   user-select: none;
   -moz-user-select: none;
   -webkit-user-select: none;
@@ -138,6 +145,7 @@ body.extra-live {
   box-shadow: 0 0 15px black;
   font-size: 2rem;
   cursor: pointer;
+  text-transform: uppercase;
 }
 
 .highscore {
@@ -160,8 +168,8 @@ body.extra-live {
   position: fixed;
   top: 0;
   left: 0;
-  width: 100vw;
-  height: 100vh;
+  width: 100%;
+  height: 100%;
   background: rgba(21, 21, 22, 0.84);
   -webkit-backdrop-filter: blur(3px);
           backdrop-filter: blur(3px);
