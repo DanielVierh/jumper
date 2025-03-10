@@ -73,6 +73,9 @@ function createObstacles() {
       saveHighscore(score);
       displayHighscore(lbl_highscore);
       new_score_is_set = true;
+      setTimeout(() => {
+        window.location.reload();
+      }, 10000);
     }
     return;
   }
@@ -131,6 +134,9 @@ setInterval(() => {
       saveHighscore(score);
       displayHighscore(lbl_highscore);
       new_score_is_set = true;
+      setTimeout(() => {
+        window.location.reload();
+      }, 10000);
     }
     return;
   }
@@ -159,6 +165,9 @@ function createEnemies() {
       saveHighscore(score);
       displayHighscore(lbl_highscore);
       new_score_is_set = true;
+      setTimeout(() => {
+        window.location.reload();
+      }, 10000);
     }
     return;
   }
