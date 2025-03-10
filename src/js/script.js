@@ -50,6 +50,7 @@ window.onload = ()=> {
 
 btn_start_game.addEventListener('click', ()=> {
   mdl_menu.classList.remove('active');
+  btn_jump.classList.add('active')
 })
 
 

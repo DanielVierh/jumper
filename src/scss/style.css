@@ -101,6 +101,14 @@ body.extra-live {
   animation: glow 8s ease-in-out infinite;
 }
 
+.button-jump {
+  display: none;
+}
+.button-jump.active {
+  display: flex;
+  height: 100px;
+}
+
 .game-over-screen {
   display: none;
 }

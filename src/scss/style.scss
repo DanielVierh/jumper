@@ -99,8 +99,17 @@ body {
 }
 
 .start-button {
-    border: 1px solid white;
-    animation: glow 8s ease-in-out infinite;
+  border: 1px solid white;
+  animation: glow 8s ease-in-out infinite;
+}
+
+.button-jump {
+  display: none;
+
+  &.active {
+    display: flex;
+    height: 100px;
+  }
 }
 
 .game-over-screen {
@@ -163,13 +172,13 @@ body {
     color: white;
 
     h1 {
-        font-size: 3rem;
-        letter-spacing: 3px;
-        text-shadow: 0 0 20px lightblue;
-        position: fixed;
-        top: 5%;
-        text-transform: uppercase;
-        animation: h1_animation 8s ease-in-out infinite;
+      font-size: 3rem;
+      letter-spacing: 3px;
+      text-shadow: 0 0 20px lightblue;
+      position: fixed;
+      top: 5%;
+      text-transform: uppercase;
+      animation: h1_animation 8s ease-in-out infinite;
     }
 
     .wrapper {
@@ -182,30 +191,30 @@ body {
 }
 
 @keyframes h1_animation {
-    0% {
-        top: 5%;
-    }
+  0% {
+    top: 5%;
+  }
 
-    50% {
-        top: 20%;
-    }
+  50% {
+    top: 20%;
+  }
 
-    100% {
-        top: 5%;
-    }
+  100% {
+    top: 5%;
+  }
 }
 
 @keyframes glow {
-    0% {
-        box-shadow: 0 0 3px white;
-    }
+  0% {
+    box-shadow: 0 0 3px white;
+  }
 
-    50% {
-        box-shadow: 0 0 40px white;
-        color: white;
-    }
+  50% {
+    box-shadow: 0 0 40px white;
+    color: white;
+  }
 
-    100% {
-        box-shadow: 0 0 5px white;
-    }
+  100% {
+    box-shadow: 0 0 5px white;
+  }
 }
