@@ -299,6 +299,18 @@ enemies.forEach((enemy, index) => {
   }else {
     score++;
   }
+
+  //* Collision with obstacle
+  obstacles.forEach((obstacle) => {
+    if (checkCollision(enemy, obstacle)) {
+      enemy.is_alive = false;
+      
+      setTimeout(() => {
+         enemies.splice(index, 1);
+      }, 500);
+    }
+  });
+
 });
 
   setTimeout(() => {
