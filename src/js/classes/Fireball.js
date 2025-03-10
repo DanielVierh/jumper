@@ -10,6 +10,7 @@ export class Fireball {
         this.gravity = 0;
         this.image = new Image();
         this.image.src = imageSrc;
+        this.is_harmfull = true;
     }
 
     update(fireballs, canvas) {

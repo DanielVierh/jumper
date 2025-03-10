@@ -34,7 +34,7 @@ background.onload = function () {
 //* Variables
 let player = new Player(30, canvas.height - 25, 25, 25);
 let obstacles = [];
-let score = 5000;
+let score = 0;
 let coins = [];
 let coin_wallet = 0;
 let fireballs = [];
@@ -65,27 +65,10 @@ document.addEventListener("keydown", (event) => {
   }
 });
 
-function got_hit(collision_obj) {
-  if(player.is_invulnerable === false && collision_obj.is_harmfull == true) {
-    bdy.classList.add("hit");
-    player.live--;
-    collision_obj.is_harmfull = false;
-    player.invulnerable();
-  }
-}
-
 //* Create Obstacles
 function createObstacles() {
   if (player.live === 0) {
-    game_over_screen.classList.add("active");
-    if(new_score_is_set === false) {
-      saveHighscore(score);
-      displayHighscore(lbl_highscore);
-      new_score_is_set = true;
-      setTimeout(() => {
-        window.location.reload();
-      }, 10000);
-    }
+    game_over();
     return;
   }
   if (score >= 20) {
@@ -138,15 +121,7 @@ function createCoins() {
 //* Create Fireballs
 setInterval(() => {
   if (player.live === 0) {
-    game_over_screen.classList.add("active");
-    if(new_score_is_set === false) {
-      saveHighscore(score);
-      displayHighscore(lbl_highscore);
-      new_score_is_set = true;
-      setTimeout(() => {
-        window.location.reload();
-      }, 10000);
-    }
+    game_over();
     return;
   }
   if(score > 7000) {
@@ -169,15 +144,7 @@ function createFireballs() {
 //* Create Enemies
 function createEnemies() {
   if (player.live === 0) {
-    game_over_screen.classList.add("active");
-    if(new_score_is_set === false) {
-      saveHighscore(score);
-      displayHighscore(lbl_highscore);
-      new_score_is_set = true;
-      setTimeout(() => {
-        window.location.reload();
-      }, 10000);
-    }
+    game_over();
     return;
   }
   if (score >= 20) {
@@ -296,12 +263,7 @@ function gameLoop() {
     fireball.draw(ctx);
 
     if (checkCollision(player, fireball)) {
-      fireballs.splice(fireballs.indexOf(fireball), 1);
-      if(player.is_invulnerable === false) {
-        bdy.classList.add("hit");
-        player.live--;
-      }
-      player.invulnerable();
+      got_hit(fireball);
     }
 
       //* Collision between enemy and fireball
@@ -351,7 +313,7 @@ enemies.forEach((enemy, index) => {
 
   setTimeout(() => {
     gameLoop()
-  }, 15);
+  }, 18);
 }
 
 gameLoop();
@@ -359,3 +321,24 @@ gameLoop();
 btn_play_again.addEventListener("click", () => {
   window.location.reload();
 });
+
+function got_hit(collision_obj) {
+  if(player.is_invulnerable === false && collision_obj.is_harmfull == true) {
+    bdy.classList.add("hit");
+    player.live--;
+    collision_obj.is_harmfull = false;
+    player.invulnerable();
+  }
+}
+
+function game_over() {
+  game_over_screen.classList.add("active");
+  if(new_score_is_set === false) {
+    saveHighscore(score);
+    displayHighscore(lbl_highscore);
+    new_score_is_set = true;
+    setTimeout(() => {
+      window.location.reload();
+    }, 10000);
+  }
+}
