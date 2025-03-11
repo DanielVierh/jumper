@@ -46,15 +46,14 @@ let enemy_interval = 5_000;
 const enemy_min_Interval = 3_500;
 let new_score_is_set = false;
 
-window.onload = ()=> {
+window.onload = () => {
   displayHighscore(lbl_last_score);
-}
+};
 
-btn_start_game.addEventListener('click', ()=> {
-  mdl_menu.classList.remove('active');
-  btn_jump.classList.add('active')
-})
-
+btn_start_game.addEventListener("click", () => {
+  mdl_menu.classList.remove("active");
+  btn_jump.classList.add("active");
+});
 
 btn_jump.addEventListener("click", () => {
   player.jump();
@@ -76,7 +75,7 @@ function createObstacles() {
     let newObstacle = createObstacle();
     obstacles.push(newObstacle);
     if (obstacle_interval > obstacle_min_Interval) {
-      obstacle_interval -= 200;      
+      obstacle_interval -= 200;
     }
   }
   setTimeout(createObstacles, obstacle_interval);
@@ -125,7 +124,7 @@ setInterval(() => {
     game_over();
     return;
   }
-  if(score > 7000) {
+  if (score > 7000) {
     let newFireball = createFireballs();
     fireballs.push(newFireball);
   }
@@ -181,8 +180,7 @@ function checkCollision(player, colliding_object) {
 }
 
 function checkEnemyCollision(player, colliding_enemy) {
-
-  if(colliding_enemy.is_alive === false) {
+  if (colliding_enemy.is_alive === false) {
     return false;
   }
 
@@ -194,16 +192,21 @@ function checkEnemyCollision(player, colliding_enemy) {
   const enemyLeft = colliding_enemy.pos_x;
 
   // Check if player is landing on top of the enemy
-  if (playerBottom <= enemyTop + 5 && playerBottom >= enemyTop - 5 && playerRight > enemyLeft && playerLeft < enemyRight) {
-    return 'landed';
+  if (
+    playerBottom <= enemyTop + 5 &&
+    playerBottom >= enemyTop - 5 &&
+    playerRight > enemyLeft &&
+    playerLeft < enemyRight
+  ) {
+    return "landed";
   }
 
-  return (
-    player.pos_x < colliding_enemy.pos_x + colliding_enemy.width &&
+  return player.pos_x < colliding_enemy.pos_x + colliding_enemy.width &&
     player.pos_x + player.width > colliding_enemy.pos_x &&
     player.pos_y + player.height > colliding_enemy.pos_y &&
     player.pos_y < colliding_enemy.pos_y + colliding_enemy.height
-  ) ? 'collided' : false;
+    ? "collided"
+    : false;
 }
 
 function gameLoop() {
@@ -235,7 +238,7 @@ function gameLoop() {
     obstacle.draw(ctx);
 
     if (checkCollision(player, obstacle)) {
-      got_hit(obstacle)
+      got_hit(obstacle);
     } else {
       score++;
     }
@@ -247,21 +250,21 @@ function gameLoop() {
     coin.draw(ctx);
 
     if (checkCollision(player, coin)) {
-      if(coin.counts) {
+      if (coin.counts) {
         score += 2;
         coin_wallet++;
+
+        if (coin_wallet % 20 === 0) {
+          player.live++;
+          bdy.classList.add("extra-live");
+        }
       }
       coin.is_catched = true;
       coin.counts = false;
-
-      if (coin_wallet % 20 === 0) {
-        player.live++;
-        bdy.classList.add("extra-live");
-      }
     }
   });
 
-    //* Loop Fireballs
+  //* Loop Fireballs
   fireballs.forEach((fireball) => {
     fireball.update(fireballs, canvas);
     fireball.draw(ctx);
@@ -270,11 +273,11 @@ function gameLoop() {
       got_hit(fireball);
     }
 
-      //* Collision between enemy and fireball
+    //* Collision between enemy and fireball
     enemies.forEach((enemy, index) => {
       if (checkCollision(fireball, enemy)) {
         enemy.is_alive = false;
-        
+
         setTimeout(() => {
           enemies.splice(index, 1);
         }, 500);
@@ -282,41 +285,40 @@ function gameLoop() {
     });
   });
 
-//* Loop enemies
-enemies.forEach((enemy, index) => {
-  enemy.update(enemies, canvas);
-  enemy.draw(ctx);
+  //* Loop enemies
+  enemies.forEach((enemy, index) => {
+    enemy.update(enemies, canvas);
+    enemy.draw(ctx);
 
-  const collisionStatus = checkEnemyCollision(player, enemy);
-  if (collisionStatus === 'collided') {
-    got_hit(enemy);
-  } else if (collisionStatus === 'landed') {
-    // Remove enemy if player lands on it
-    enemy.is_alive = false;
-    score += 10;
-    
-    setTimeout(() => {
-       enemies.splice(index, 1);
-    }, 500);
-  }else {
-    score++;
-  }
-
-  //* Collision between enemy and obstacle
-  obstacles.forEach((obstacle) => {
-    if (checkCollision(enemy, obstacle)) {
+    const collisionStatus = checkEnemyCollision(player, enemy);
+    if (collisionStatus === "collided") {
+      got_hit(enemy);
+    } else if (collisionStatus === "landed") {
+      // Remove enemy if player lands on it
       enemy.is_alive = false;
-      
+      score += 10;
+
       setTimeout(() => {
-         enemies.splice(index, 1);
+        enemies.splice(index, 1);
       }, 500);
+    } else {
+      score++;
     }
+
+    //* Collision between enemy and obstacle
+    obstacles.forEach((obstacle) => {
+      if (checkCollision(enemy, obstacle)) {
+        enemy.is_alive = false;
+
+        setTimeout(() => {
+          enemies.splice(index, 1);
+        }, 500);
+      }
+    });
   });
 
-});
-
   setTimeout(() => {
-    gameLoop()
+    gameLoop();
   }, 18);
 }
 
@@ -327,7 +329,7 @@ btn_play_again.addEventListener("click", () => {
 });
 
 function got_hit(collision_obj) {
-  if(player.is_invulnerable === false && collision_obj.is_harmfull == true) {
+  if (player.is_invulnerable === false && collision_obj.is_harmfull == true) {
     bdy.classList.add("hit");
     player.live--;
     collision_obj.is_harmfull = false;
@@ -338,14 +340,14 @@ function got_hit(collision_obj) {
 function game_over() {
   game_over_screen.classList.add("active");
   if (new_score_is_set === false) {
-      const isNewHighscore = saveHighscore(score);
-      displayHighscore(lbl_highscore);
-      if (isNewHighscore) {
-        lbl_new_highscore.classList.add('active');
-      }
-      new_score_is_set = true;
-      setTimeout(() => {
-          window.location.reload();
-      }, 15000);
+    const isNewHighscore = saveHighscore(score);
+    displayHighscore(lbl_highscore);
+    if (isNewHighscore) {
+      lbl_new_highscore.classList.add("active");
+    }
+    new_score_is_set = true;
+    setTimeout(() => {
+      window.location.reload();
+    }, 15000);
   }
 }
