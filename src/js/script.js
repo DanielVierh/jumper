@@ -247,9 +247,12 @@ function gameLoop() {
     coin.draw(ctx);
 
     if (checkCollision(player, coin)) {
-      coins.splice(index, 1);
-      score += 2;
-      coin_wallet++;
+      if(coin.counts) {
+        score += 2;
+        coin_wallet++;
+      }
+      coin.is_catched = true;
+      coin.counts = false;
 
       if (coin_wallet % 20 === 0) {
         player.live++;
