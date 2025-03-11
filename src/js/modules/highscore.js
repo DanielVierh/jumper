@@ -30,7 +30,7 @@ export function displayHighscore(lbl) {
     const highscores = getHighscore();
     if (highscores.length > 0) {
         lbl.innerHTML = highscores.map((highscore, index) => 
-            `${index + 1}. Score: ${highscore.score} - Am: ${highscore.date} - ${highscore.time}`
+            `${index + 1}. Score: ${highscore.score} - ${highscore.date} - ${highscore.time}`
         ).join('<br>');
     } else {
         lbl.innerHTML = 'Keine Highscores vorhanden.';
